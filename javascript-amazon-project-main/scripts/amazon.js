@@ -81,6 +81,14 @@ button.addEventListener('click', () => {
     productId: productId,
     quantity: 1
   });}
-  console.log(cart);
+
+  let cartQuantity = 0;
+    cart.forEach((item) => {
+      cartQuantity += item.quantity;
+    });
+  
+    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+ /* console.log(cart);
+    console.log(cartQuantity);*/ //for learning purposes only, to see the cart and cart quantity in the console
 });
 });
