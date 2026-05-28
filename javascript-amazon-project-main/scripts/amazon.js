@@ -1,5 +1,8 @@
-import {cart} from '../data/cart.js';
+import {cart,addtocart} from '../data/cart.js';
 import {products} from '../data/products.js';
+
+
+
 let productsHTML = '';
 
 
@@ -63,32 +66,28 @@ products.forEach((product) => {
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
+function updateCartQuantity() { //we will not transfer this function to cart.js because it is more of udating cart rather than modifying the cart, we want to keep all the cart modifying functions in cart.js and all the cart updating functions in amazon.js
+  let cartQuantity = 0;
+  cart.forEach((CartItem) => {
+    cartQuantity += CartItem.quantity;
+  });
+  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+}
 
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
 button.addEventListener('click', () => {
   const productId = button.dataset.productId;
+
+
 //A new item is added, even if it already exists to overcome this we will loop through the cart and check if the item already exists, if it does we will increase the quantity by 1, if it doesn't we will add a new item to the cart with quantity 1.
-  let matchingItem;
-    cart.forEach((item) => {
-      if (item.productId === productId) {//👉 to uniquely identify each product name are not reliable
-        matchingItem = item;
-      }
-    });
+   
 
-    if (matchingItem) {
-      matchingItem.quantity++;
-    } else {
-  cart.push({
-    productId: productId,
-    quantity: 1
-  });}
+  addtocart(productId);
+    updateCartQuantity();
 
-  let cartQuantity = 0;
-    cart.forEach((item) => {
-      cartQuantity += item.quantity;
-    });
-  
-    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+
+
+
  /* console.log(cart);
     console.log(cartQuantity);*/ //for learning purposes only, to see the cart and cart quantity in the console
 });
