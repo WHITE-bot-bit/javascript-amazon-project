@@ -1,4 +1,6 @@
-export let cart =[
+export let cart = JSON.parse(localStorage.getItem('cart')) || //if there is no cart in local storage then we will use empty array as default value
+
+ [
   {
     productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
     quantity: 2
@@ -7,6 +9,10 @@ export let cart =[
     quantity: 1
   }
 ];
+
+function savetostorage(){
+  localStorage.setItem('cart',JSON.stringify(cart));
+}
 
  export function addtocart(productId) {
 let matchingItem;
@@ -22,7 +28,9 @@ let matchingItem;
   cart.push({
     productId: productId,
     quantity: 1
-  });}}
+  });}
+savetostorage();
+}
 
 
  export function removefromcart(productId) {
@@ -33,6 +41,8 @@ let matchingItem;
         } });
 
         cart = newcart;
+
+        savetostorage();
   }
   /*Create empty cart
 //Check every item
