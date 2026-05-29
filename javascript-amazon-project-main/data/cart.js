@@ -53,3 +53,20 @@ savetostorage();
 //Skip the item to remove
 //Put all remaining items into new cart
 //Replace old cart with new cart*/
+
+
+
+export function udatedeliveryoption(productId,deliveryoptionid){
+  let matchingItem;
+
+    cart.forEach((CartItem) => {
+      if (CartItem.productId === productId) {
+        matchingItem = CartItem;
+      }
+    });
+
+    matchingItem.deliveryoptionid = deliveryoptionid;
+
+    savetostorage();
+
+}
