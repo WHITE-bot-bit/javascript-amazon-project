@@ -4,13 +4,10 @@
     import {hello} from "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js";
     import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';//default export
     import {deliveryoptions,getdeliveryoption} from "../../data/deliveryoption.js";
+    import { renderpaymentsummary } from "./paymentsummary.js";
     
 
-    hello();
-
-    const today = dayjs();
-    const deliveryDate = today.add(7,'day');
-    console.log(deliveryDate.format('dddd, MMMM D'));
+  
     export function renderordersummary() {
 
 
@@ -118,6 +115,9 @@ const deliveryoption = getdeliveryoption(deliveryoptionid);
         removefromcart(productId);
         const container=document.querySelector(`.js-cart-item-conatiner-${productId}`);
         container.remove();
+
+
+        renderpaymentsummary();
       });
     });
 
@@ -127,6 +127,7 @@ const deliveryoption = getdeliveryoption(deliveryoptionid);
       const { productId, deliveryOptionId } = element.dataset;
         udatedeliveryoption(productId,deliveryOptionId);
         renderordersummary();
+        renderpaymentsummary();
     })
     });
     }
