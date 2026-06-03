@@ -1,4 +1,9 @@
-export let cart = JSON.parse(localStorage.getItem('cart')) || //if there is no cart in local storage then we will use empty array as default value
+export let cart;
+
+loadfromstorage();
+
+ export function loadfromstorage(){
+cart = JSON.parse(localStorage.getItem('cart')) || //if there is no cart in local storage then we will use empty array as default value
 
  [
   {
@@ -12,6 +17,7 @@ export let cart = JSON.parse(localStorage.getItem('cart')) || //if there is no c
     deliveryoptionid:'2'
   }
 ];
+}
 
 function savetostorage(){
   localStorage.setItem('cart',JSON.stringify(cart));
