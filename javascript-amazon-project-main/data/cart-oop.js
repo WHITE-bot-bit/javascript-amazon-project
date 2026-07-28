@@ -1,11 +1,11 @@
+function Cart(localStorageKey){
 
-
-const cart = {
+  const cart = {
    cartItems: undefined,
 
 
      loadfromstorage: function(){
-this.cartItems = JSON.parse(localStorage.getItem('cart-oop')) || //if there is no cart in local storage then we will use empty array as default value
+this.cartItems = JSON.parse(localStorage.getItem(localStorageKey)) || //if there is no cart in local storage then we will use empty array as default value
 
  [
   {
@@ -23,7 +23,7 @@ this.cartItems = JSON.parse(localStorage.getItem('cart-oop')) || //if there is n
 
 
  savetostorage(){         //short hand for function definition
-  localStorage.setItem('cart-oop',JSON.stringify(this.cartItems));
+  localStorage.setItem(localStorageKey,JSON.stringify(this.cartItems));
 },
 
 
@@ -83,12 +83,16 @@ this.savetostorage();
 }
 
 };
+return cart;
+}
 
+const cart = Cart('cart-oop');
+const buisnesscart = Cart('business-cart');
 
 cart.loadfromstorage();
 
 
-
+buisnesscart.loadfromstorage();
 
 
 console.log(cart);
