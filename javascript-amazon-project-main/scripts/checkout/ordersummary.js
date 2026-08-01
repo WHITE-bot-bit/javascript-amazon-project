@@ -49,7 +49,7 @@ const deliveryoption = getdeliveryoption(deliveryoptionid);
                       ${matchingProduct.name}
                     </div>
                     <div class="product-price">
-                      $${formatCurrency(matchingProduct.priceCents)}
+                      ${matchingProduct.getprice()}
                     </div>
                     <div class="product-quantity
                     js-product-quantity-${matchingProduct.id}">

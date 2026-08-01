@@ -1,4 +1,5 @@
- export function getproduct(productId) {
+import {formatCurrency} from "../scripts/utils/money.js";
+export function getproduct(productId) {
 let matchingProduct;
 
 
@@ -8,7 +9,35 @@ let matchingProduct;
       } });
          return matchingProduct;
   }
+
+class Products {
+  id;
+  image;
+  name;
+  rating;
+  priceCents;  
+
+  constructor(productdetails){
+   this.id = productdetails.id;
+   this.image = productdetails.image;
+   this.name = productdetails.name;
+   this.rating = productdetails.rating;
+   this.priceCents = productdetails.priceCents;
+  }
+
+  getStarsUrl(){
+          return `images/ratings/rating-${this.rating.stars*10}.png`;
+  }
+
+  getprice(){
+    return `$${formatCurrency(this.priceCents)}`;
+  }
+}
+
+
+
 export const products = [
+  
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     image: "images/products/athletic-cotton-socks-6-pairs.jpg",
@@ -667,4 +696,6 @@ export const products = [
       "mens"
     ]
   }
-];
+].map((productdetails) => {
+   return new Products(productdetails);
+});

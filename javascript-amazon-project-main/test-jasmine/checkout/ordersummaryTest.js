@@ -1,5 +1,5 @@
 import { renderordersummary } from "../../scripts/checkout/ordersummary.js";
-import {loadfromstorage,cart} from '../../data/cart.js';
+import {cart} from '../../data/cart.js';
 import { renderpaymentsummary } from "../../scripts/checkout/paymentsummary.js";
 
 describe('test suit: renderordersummary', () => {
@@ -30,7 +30,7 @@ const productId1 = 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6';
 ]);
      });
      
-      loadfromstorage();
+      cart.loadfromstorage();
 
       renderordersummary();
     });
@@ -63,8 +63,8 @@ const productId1 = 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6';
     document.querySelector(`.js-cart-item-conatiner-${productId2}`)
             ).not.toEqual(null);
 
-      expect(cart.length).toEqual(1);
-      expect(cart[0].productId).toEqual(productId2);
+      expect(cart.cartItems.length).toEqual(1);
+      expect(cart.cartItems[0].productId).toEqual(productId2);
 
 
   
