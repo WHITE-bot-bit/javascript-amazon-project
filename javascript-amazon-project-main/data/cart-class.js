@@ -1,15 +1,16 @@
 class Cart{
      cartItems ;
-     localStorageKey;//both are undefined default value
+     #localStorageKey;//both are undefined default value
      
 
      constructor(localStorageKey){
-    this.localStorageKey = localStorageKey;
-    this.loadfromstorage();
+    this.#localStorageKey = localStorageKey;  //#means private property
+
+    this.#loadfromstorage();
      }
 
-      loadfromstorage(){
-this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey)) || //if there is no cart in local storage then we will use empty array as default value
+      #loadfromstorage(){        //private method
+this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)) || //if there is no cart in local storage then we will use empty array as default value
 
  [
   {
@@ -27,7 +28,7 @@ this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey)) || //if 
 
 
  savetostorage(){         //short hand for function definition
-  localStorage.setItem(this.localStorageKey,JSON.stringify(this.cartItems));
+  localStorage.setItem(this.#localStorageKey,JSON.stringify(this.cartItems));
 }
 
 
