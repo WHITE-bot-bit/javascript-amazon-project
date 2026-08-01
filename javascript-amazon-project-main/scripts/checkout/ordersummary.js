@@ -1,4 +1,4 @@
-    import {cart,removefromcart,udatedeliveryoption} from "../../data/cart.js";
+    import {cart} from "../../data/cart.js";
     import {products,getproduct} from "../../data/products.js";
     import {formatCurrency} from "../utils/money.js";
     import {hello} from "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js";
@@ -12,8 +12,10 @@
 
 
     let cartsummaryhtml = '';
-
-    cart.forEach((cartItem) => {
+console.log(cart);
+console.log(cart.cartItems);
+console.log(Array.isArray(cart.cartItems));
+    cart.cartItems.forEach((cartItem) => {
 
       const productId = cartItem.productId;
     const matchingProduct = getproduct(productId);
@@ -118,7 +120,7 @@ const deliveryoption = getdeliveryoption(deliveryoptionid);
       link.addEventListener('click', () => {
         const productId = link.dataset.productId;
 
-        removefromcart(productId);
+        cart.removefromcart(productId);
         
         const container=document.querySelector(`.js-cart-item-conatiner-${productId}`);
         container.remove();
@@ -132,7 +134,7 @@ const deliveryoption = getdeliveryoption(deliveryoptionid);
     document.querySelectorAll('.js-delivery-option').forEach((element) => {
     element.addEventListener('click', () => {
       const { productId, deliveryOptionId } = element.dataset;
-        udatedeliveryoption(productId,deliveryOptionId);
+        cart.udatedeliveryoption(productId,deliveryOptionId);
         renderordersummary();
         renderpaymentsummary();
     })

@@ -1,9 +1,16 @@
-export let cart;
+class Cart{
+     cartItems ;
+     #localStorageKey;//both are undefined default value
+     
 
-loadfromstorage();
+     constructor(localStorageKey){
+    this.#localStorageKey = localStorageKey;  //#means private property
 
- export function loadfromstorage(){
-cart = JSON.parse(localStorage.getItem('cart')) || //if there is no cart in local storage then we will use empty array as default value
+    this.#loadfromstorage();
+     }
+
+      #loadfromstorage(){        //private method
+this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)) || //if there is no cart in local storage then we will use empty array as default value
 
  [
   {
@@ -17,15 +24,17 @@ cart = JSON.parse(localStorage.getItem('cart')) || //if there is no cart in loca
     deliveryoptionid:'2'
   }
 ];
+} 
+
+
+ savetostorage(){         //short hand for function definition
+  localStorage.setItem(this.#localStorageKey,JSON.stringify(this.cartItems));
 }
 
-function savetostorage(){
-  localStorage.setItem('cart',JSON.stringify(cart));
-}
 
- export function addtocart(productId) {
+  addtocart(productId) {
 let matchingItem;
-    cart.forEach((CartItem) => {
+    this.cartItems.forEach((CartItem) => {
       if (CartItem.productId === productId) {//👉 to uniquely identify each product name are not reliable
         matchingItem = CartItem;
       }
@@ -34,25 +43,25 @@ let matchingItem;
     if (matchingItem) {
       matchingItem.quantity++;
     } else {
-  cart.push({
+  this.cartItems.push({
     productId: productId,
     quantity: 1,
     deliveryoptionid:'1'
   });}
-savetostorage();
+this.savetostorage();
 }
 
 
- export function removefromcart(productId) {
+  removefromcart(productId) {
       const newcart =[];
-      cart.forEach((cartItem) => {
+      this.cartItems.forEach((cartItem) => {
         if (cartItem.productId !== productId) {
           newcart.push(cartItem);
         } });
 
-        cart = newcart;
+        this.cartItems = newcart;
 
-        savetostorage();
+        this.savetostorage();
   }
   /*Create empty cart
 //Check every item
@@ -61,11 +70,10 @@ savetostorage();
 //Replace old cart with new cart*/
 
 
-
-export function udatedeliveryoption(productId,deliveryoptionid){
+ udatedeliveryoption(productId,deliveryoptionid){
   let matchingItem;
 
-    cart.forEach((CartItem) => {
+    this.cartItems.forEach((CartItem) => {
       if (CartItem.productId === productId) {
         matchingItem = CartItem;
       }
@@ -73,6 +81,18 @@ export function udatedeliveryoption(productId,deliveryoptionid){
 
     matchingItem.deliveryoptionid = deliveryoptionid;
 
-    savetostorage();
+    this.savetostorage();
 
 }
+
+}
+
+
+const cart = new Cart('cart-oop');                             //create new instance of cart class
+const buisnesscart = new Cart('business-cart');                      //create new instance of cart class
+
+export {cart,buisnesscart};
+
+
+console.log(cart);
+console.log(buisnesscart);
