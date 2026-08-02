@@ -1,96 +1,103 @@
 import {cart} from '../data/cart.js';
-import {products} from '../data/products.js';
+import {products,loadProducts} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 
+loadProducts(renderproductsgrid);
 
-let productsHTML = '';
+
+function renderproductsgrid(){
 
 
-products.forEach((product) => {
-  productsHTML  += `
-      <div class="product-container">
-          <div class="product-image-container">
-            <img class="product-image"
-              src="${product.image}">
-          </div>
 
-          <div class="product-name limit-text-to-2-lines">
-            ${product.name}
-          </div>
+    let productsHTML = '';
+      
 
-          <div class="product-rating-container">
-            <img class="product-rating-stars"
-              src="${product.getStarsUrl()}">
-            <div class="product-rating-count link-primary">
-              ${product.rating.count}
+    products.forEach((product) => {
+      productsHTML  += `
+          <div class="product-container">
+              <div class="product-image-container">
+                <img class="product-image"
+                  src="${product.image}">
+              </div>
+
+              <div class="product-name limit-text-to-2-lines">
+                ${product.name}
+              </div>
+
+              <div class="product-rating-container">
+                <img class="product-rating-stars"
+                  src="${product.getStarsUrl()}">
+                <div class="product-rating-count link-primary">
+                  ${product.rating.count}
+                </div>
+              </div>
+
+              <div class="product-price">
+                ${product.getprice()}
+              </div>
+
+              <div class="product-quantity-container">
+                <select>
+                  <option selected value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+
+              ${product.extraInfoHTML()}
+
+              <div class="product-spacer"></div>
+
+              <div class="added-to-cart">
+                <img src="images/icons/checkmark.png">
+                Added
+              </div>
+
+              <button class="add-to-cart-button button-primary js-add-to-cart"
+              data-product-id="${product.id}">
+                Add to Cart
+              </button>
             </div>
-          </div>
+      `;
 
-          <div class="product-price">
-            ${product.getprice()}
-          </div>
-
-          <div class="product-quantity-container">
-            <select>
-              <option selected value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
-          </div>
-
-          ${product.extraInfoHTML()}
-
-          <div class="product-spacer"></div>
-
-          <div class="added-to-cart">
-            <img src="images/icons/checkmark.png">
-            Added
-          </div>
-
-          <button class="add-to-cart-button button-primary js-add-to-cart"
-          data-product-id="${product.id}">
-            Add to Cart
-          </button>
-        </div>
-  `;
-
-  
-});
+      
+    });
 
 
 
-document.querySelector('.js-products-grid').innerHTML = productsHTML;
+    document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
-function updateCartQuantity() { //we will not transfer this function to cart.js because it is more of udating cart rather than modifying the cart, we want to keep all the cart modifying functions in cart.js and all the cart updating functions in amazon.js
-  let cartQuantity = 0;
-  cart.cartItems.forEach((CartItem) => {
-    cartQuantity += CartItem.quantity;
-  });
-  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+    function updateCartQuantity() { //we will not transfer this function to cart.js because it is more of udating cart rather than modifying the cart, we want to keep all the cart modifying functions in cart.js and all the cart updating functions in amazon.js
+      let cartQuantity = 0;
+      cart.cartItems.forEach((CartItem) => {
+        cartQuantity += CartItem.quantity;
+      });
+      document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+    }
+
+    document.querySelectorAll('.js-add-to-cart').forEach((button) => {
+    button.addEventListener('click', () => {
+      const productId = button.dataset.productId;
+
+
+    //A new item is added, even if it already exists to overcome this we will loop through the cart and check if the item already exists, if it does we will increase the quantity by 1, if it doesn't we will add a new item to the cart with quantity 1.
+      
+
+      cart.addtocart(productId);
+        updateCartQuantity();
+
+
+
+
+    /* console.log(cart);
+        console.log(cartQuantity);*/ //for learning purposes only, to see the cart and cart quantity in the console
+    });
+    });
 }
-
-document.querySelectorAll('.js-add-to-cart').forEach((button) => {
-button.addEventListener('click', () => {
-  const productId = button.dataset.productId;
-
-
-//A new item is added, even if it already exists to overcome this we will loop through the cart and check if the item already exists, if it does we will increase the quantity by 1, if it doesn't we will add a new item to the cart with quantity 1.
-   
-
-  cart.addtocart(productId);
-    updateCartQuantity();
-
-
-
-
- /* console.log(cart);
-    console.log(cartQuantity);*/ //for learning purposes only, to see the cart and cart quantity in the console
-});
-});
