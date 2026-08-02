@@ -56,8 +56,38 @@ class Clothing extends Products {
   `;
  }
 }
+/*
+
+ const date = new Date();
+ console.log(date);
+ console.log(date.toLocaleTimeString());
 
 
+
+ console.log(this);
+ const obj2 = {
+  a:2,
+  b:this.a
+ };
+ */
+
+/*
+ function logThis(){
+  console.log(this);
+ }
+ logThis();
+ logThis.call('hello');
+
+
+ const onj3 = {
+  method: () =>{
+    console.log(this);
+  }
+ }
+
+ onj3.method();
+
+*/
 
 
 export const products = [
