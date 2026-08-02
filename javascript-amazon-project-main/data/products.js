@@ -32,7 +32,31 @@ class Products {
   getprice(){
     return `$${formatCurrency(this.priceCents)}`;
   }
+
+  extraInfoHTML(){
+    return '';
+  }
+
 }
+
+class Clothing extends Products {
+ sizeChartLink;
+
+ constructor(productdetails){
+  super(productdetails);
+  this.sizeChartLink = productdetails.sizeChartLink;
+ }
+
+ extraInfoHTML(){
+  //super.extraInfoHTML();//call the parent method
+  return `
+   <a href="${this.sizeChartLink}"target="_blank">
+   Size Chart
+   </a>
+  `;
+ }
+}
+
 
 
 
@@ -81,7 +105,7 @@ export const products = [
       "apparel",
       "mens"
     ],
-    type: "clothing",
+    type: "clothing", //discrimantor property
     sizeChartLink: "images/clothing-size-chart.png"
   },
   {
@@ -697,5 +721,8 @@ export const products = [
     ]
   }
 ].map((productdetails) => {
+  if(productdetails.type === 'clothing'){
+   return new Clothing(productdetails);
+  }
    return new Products(productdetails);
 });
