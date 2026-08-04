@@ -94,5 +94,22 @@ const buisnesscart = new Cart('business-cart');                      //create ne
 export {cart,buisnesscart};
 
 
-console.log(cart);
-console.log(buisnesscart);
+//console.log(cart);  
+//console.log(buisnesscart);  
+
+
+export function loadCart(fun){
+  const xhr = new XMLHttpRequest();
+
+xhr.addEventListener('load',() => { 
+  console.log(xhr.response);
+
+
+fun();
+});
+
+
+
+  xhr.open('GET', 'https://supersimplebackend.dev/cart');
+  xhr.send();
+}

@@ -12,9 +12,9 @@
 
 
     let cartsummaryhtml = '';
-console.log(cart);
-console.log(cart.cartItems);
-console.log(Array.isArray(cart.cartItems));
+//console.log(cart);
+//console.log(cart.cartItems);
+//console.log(Array.isArray(cart.cartItems));
     cart.cartItems.forEach((cartItem) => {
 
       const productId = cartItem.productId;
