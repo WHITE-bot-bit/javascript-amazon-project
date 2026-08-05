@@ -8,9 +8,28 @@ import {loadCart} from '../data/cart.js';
 
 //import '../data/bakend-practice.js';
 
+
+
+async function loadpage(){
+
+await loadProductsfetch();
+
+ const value = await new Promise((resolve) => {
+        loadCart(() => {
+            resolve('3');
+        });  
+     });
+
+       renderordersummary();
+    renderpaymentsummary();
+
+}
+loadpage();
+
+/*
 Promise.all([
   loadProductsfetch(),
-  
+
   new Promise((resolve) => {
         loadCart(() => {
             resolve();
@@ -22,7 +41,7 @@ Promise.all([
      renderordersummary();
     renderpaymentsummary();
 });
-
+*/
 /*
 
 new Promise((resolve) => {
