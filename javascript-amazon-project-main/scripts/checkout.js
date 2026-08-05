@@ -1,7 +1,7 @@
 import {renderordersummary} from './checkout/ordersummary.js';
 
 import {renderpaymentsummary} from './checkout/paymentsummary.js';
-import {loadProducts} from '../data/products.js';
+import {loadProducts,loadProductsfetch} from '../data/products.js';
 import {loadCart} from '../data/cart.js';
 
 //import '../data/cart-class.js';
@@ -9,13 +9,8 @@ import {loadCart} from '../data/cart.js';
 //import '../data/bakend-practice.js';
 
 Promise.all([
-    new Promise((resolve) => {
-    
-    loadProducts(() =>{   
-        resolve('value1');
-    });
-
-}),
+  loadProductsfetch(),
+  
   new Promise((resolve) => {
         loadCart(() => {
             resolve();
