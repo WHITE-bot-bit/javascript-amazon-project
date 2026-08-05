@@ -107,15 +107,19 @@ export function loadProductsfetch(){
 });
 
 console.log('load products');
+  }).catch((error) => {
+    console.log('error loading products');
   });
   return promise; 
 }
+
 /*
 
 loadProductsfetch().then(() => {
   console.log('next step');
 });
 */
+
 export function loadProducts(fun){
   const xhr = new XMLHttpRequest();
 
@@ -129,6 +133,10 @@ xhr.addEventListener('load',() => {
 
 console.log('load products');
 fun();
+});
+
+xhr.addEventListener('error',(error) => {   //set up seprate callback for error handling
+  console.log('error loading products');
 });
 
 

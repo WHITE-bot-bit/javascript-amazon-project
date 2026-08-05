@@ -11,16 +11,24 @@ import {loadCart} from '../data/cart.js';
 
 
 async function loadpage(){
+ try{
+   // throw 'error1';
+  await loadProductsfetch();
 
-await loadProductsfetch();
-
- const value = await new Promise((resolve) => {
+ const value = await new Promise((resolve, reject) => {
+   // throw 'error2';
         loadCart(() => {
-            resolve('3');
+            //reject('error3');
+           resolve('3');
         });  
      });
+       
 
-       renderordersummary();
+ } catch (error){
+  console.error('Error loading page');
+ }
+
+     renderordersummary();
     renderpaymentsummary();
 
 }
